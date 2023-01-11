@@ -4,6 +4,8 @@ import { AiFillGithub } from "react-icons/ai";
 import { FaBuilding } from "react-icons/fa";
 import { FaUserFriends } from "react-icons/fa";
 import { RiShareBoxFill } from "react-icons/ri";
+import { SearchPost } from "../../components/SearchPost";
+import { Card } from "../../components/Card";
 
 export function Home() {
   return (
@@ -38,6 +40,13 @@ export function Home() {
           </div>
         </ContentInfo>
       </InfoProfile>
+
+      <SearchPost />
+
+      <main className="posts">
+        <Card id="1" />
+        <Card id="2" />
+      </main>
     </HomeContainer>
   );
 }
