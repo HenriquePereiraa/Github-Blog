@@ -2,6 +2,8 @@ import { SearchPostContainer } from "./styles";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useContext } from "react";
+import { PostBlogContext } from "../../context/PostBlogContext";
 
 const searchFormSchema = z.object({
   query: z.string(),
@@ -14,8 +16,12 @@ export function SearchPost() {
     resolver: zodResolver(searchFormSchema),
   });
 
-  function handleSearch() {
-    console.log("foi");
+  const { fetchPosts, posts } = useContext(PostBlogContext);
+
+  const amountedPost = posts.length;
+
+  function handleSearch(query: any) {
+    fetchPosts(query);
     reset();
   }
 
@@ -23,7 +29,11 @@ export function SearchPost() {
     <SearchPostContainer>
       <div className="content">
         <h2>Publicações</h2>
-        <span>6 publicações</span>
+        <span>
+          {amountedPost > 1
+            ? `${amountedPost} publicações`
+            : `${amountedPost} publicação`}
+        </span>
       </div>
 
       <form action="" onSubmit={handleSubmit(handleSearch)}>
