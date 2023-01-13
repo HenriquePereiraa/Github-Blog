@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { CardContainer } from "./styles";
-import { format } from "date-fns";
+import { format, formatDistance } from "date-fns";
 import { ptBR } from "date-fns/locale";
 
 interface CardProps {
@@ -17,23 +17,15 @@ export function Card({ id, title, body, created_at }: CardProps) {
     navigate(`/post/${id}`);
   }
 
-  const publishedDateFormatted = format(
-    new Date(created_at),
-    "dd 'de' LLLL 'às' HH:mm'h'",
-    {
-      locale: ptBR,
-    }
-  );
+  const formateDate = formatDistance(
+    new Date(), new Date(created_at), {locale: ptBR, addSuffix: true}
+  )
 
   return (
     <CardContainer onClick={handleNavigation}>
       <div className="header__card">
         <h2>{title}</h2>
-        <span>
-          <time title={publishedDateFormatted} dateTime={created_at}>
-            {publishedDateFormatted}
-          </time>
-        </span>
+        <span>{formateDate}</span>
       </div>
 
       <div className="content__card">

@@ -9,6 +9,8 @@ import { Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { PostBlogContext } from "../../context/PostBlogContext";
 import { api } from "../../lib/axios";
+import { formatDistance } from "date-fns";
+import { ptBR } from "date-fns/locale";
 
 interface Post {
   id: number;
@@ -40,6 +42,13 @@ export function Post() {
     if (id) fetchOnlyPost(id);
   }, []);
 
+  let formateDate: string;
+  if(post?.created_at) {
+    formateDate = formatDistance(
+      new Date(), new Date(post.created_at), {locale: ptBR, addSuffix: true}
+    )
+  }
+
   return (
     <InfoPostContainer>
       <InfoPost>
@@ -64,7 +73,7 @@ export function Post() {
             </div>
             <div className="info__more-information">
               <FaCalendarDay size={20} fill="#7B96B2" />
-              <span>Há 1 dia</span>
+              <span>{formateDate}</span>
             </div>
             <div className="info__more-information">
               <FaComment size={20} fill="#7B96B2" />

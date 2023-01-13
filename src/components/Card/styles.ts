@@ -25,7 +25,7 @@ export const CardContainer = styled.div`
     justify-content: space-between;
 
     h2 {
-      width: 85%;
+      width: 82%;
       font-size: 1.25rem;
       font-weight: 700;
       line-height: 2rem;
